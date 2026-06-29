@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /ZYZLIVING_ASIN_Images/
+Disallow: /.uploads/
+Disallow: /*.xlsx$
+
+Sitemap: https://zyzhome.com/sitemap.xml
+
+# Crawl-delay for conservative crawlers
+Crawl-delay: 1
