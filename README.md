@@ -3,6 +3,7 @@
 A modern, SEO-optimized static website for **ZYZ Home** -- a home furnishings brand featuring smart trash cans and solid wood furniture.
 
 - **Live Site**: https://zyzhome.com
+- **GitHub Pages**: https://supuzz.github.io/ZYZHome
 - **Amazon Store**: https://www.amazon.com/stores/ZYZLIVING/page/F11979F5-F581-47CB-9717-7A19A6B0B1EC
 
 ## Overview
