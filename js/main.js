@@ -295,15 +295,25 @@ function initFaq() {
 
 const API_BASE_URL = 'https://api.supuzz.cn';
 
+function isLocalhost() {
+  const hostname = window.location.hostname;
+  return hostname === 'localhost' || hostname === '127.0.0.1' || hostname.startsWith('192.168.');
+}
+
 function reportPageView() {
   const payload = {
-    brandName: 'ZYZ Home',
+    brandName: 'ZYZ',
     domain: window.location.hostname || 'zyzhome.com',
     pageUrl: window.location.pathname,
     referrer: document.referrer || '',
     userAgent: navigator.userAgent || '',
     ipAddress: ''
   };
+
+  if (isLocalhost()) {
+    console.log('[PageView]', payload);
+    return;
+  }
 
   fetch(`${API_BASE_URL}/api/pageview`, {
     method: 'POST',
