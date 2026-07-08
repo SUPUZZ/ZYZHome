@@ -355,7 +355,7 @@ function initSubscribeForm() {
           'Origin': window.location.origin
         },
         body: JSON.stringify({
-          brandName: 'ZYZ Home',
+          brandName: 'ZYZ',
           domain: window.location.hostname || 'zyzhome.com',
           email: email
         }),
