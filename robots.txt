@@ -1,10 +1,16 @@
 User-agent: *
 Allow: /
-Disallow: /ZYZLIVING_ASIN_Images/
-Disallow: /.uploads/
-Disallow: /*.xlsx$
+Allow: /index.html
+Allow: /trash-can.html
+Allow: /rocking-chair.html
+Allow: /side-table.html
+Allow: /ottoman.html
+Allow: /swivel-chair.html
+Allow: /about.html
+Allow: /images/
+
+Disallow: /css/
+Disallow: /js/
+Disallow: /vendor/
 
 Sitemap: https://zyzhome.com/sitemap.xml
-
-# Crawl-delay for conservative crawlers
-Crawl-delay: 1
