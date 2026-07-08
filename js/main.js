@@ -293,6 +293,91 @@ function initFaq() {
   });
 }
 
+const API_BASE_URL = 'https://api.supuzz.cn';
+
+function reportPageView() {
+  const payload = {
+    brandName: 'ZYZ Home',
+    domain: window.location.hostname || 'zyzhome.com',
+    pageUrl: window.location.pathname,
+    referrer: document.referrer || '',
+    userAgent: navigator.userAgent || '',
+    ipAddress: ''
+  };
+
+  fetch(`${API_BASE_URL}/api/pageview`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Origin': window.location.origin
+    },
+    body: JSON.stringify(payload),
+    credentials: 'include'
+  }).catch(() => {});
+}
+
+function initSubscribeForm() {
+  const form = document.getElementById('subscribeForm');
+  if (!form) return;
+
+  const emailInput = document.getElementById('subscribeEmail');
+  const messageDiv = document.getElementById('subscribeMessage');
+  const submitBtn = form.querySelector('.subscribe-btn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = emailInput.value.trim();
+    if (!email) {
+      showMessage('Please enter your email', 'error');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Subscribing...';
+    showMessage('', '');
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/subscribe`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Origin': window.location.origin
+        },
+        body: JSON.stringify({
+          brandName: 'ZYZ Home',
+          domain: window.location.hostname || 'zyzhome.com',
+          email: email
+        }),
+        credentials: 'include'
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        showMessage('Successfully subscribed!', 'success');
+        form.reset();
+      } else {
+        const errorData = await response.json().catch(() => null);
+        showMessage(errorData?.message || 'Subscription failed, please try again', 'error');
+      }
+    } catch (error) {
+      showMessage('Network error, please try again', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Subscribe';
+    }
+  });
+
+  function showMessage(text, type) {
+    if (!messageDiv) return;
+    messageDiv.textContent = text;
+    messageDiv.className = 'subscribe-message';
+    if (type) {
+      messageDiv.classList.add(type);
+    }
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initFilters();
   initMobileNav();
@@ -300,4 +385,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initNavbarScroll();
   initHeroSlider();
   initFaq();
+  initSubscribeForm();
+  reportPageView();
 });
